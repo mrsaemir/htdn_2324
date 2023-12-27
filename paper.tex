@@ -1,0 +1,38 @@
+\documentclass[10pt,sigconf]{acmart}
+\settopmatter{printacmref=false} % Removes citation information below abstract
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+\pagestyle{plain}
+\usepackage[english]{babel}
+\usepackage{blindtext}
+
+
+
+\begin{document}
+\title{A \LaTeX\ Template for HTDN 2020}
+
+\subtitle{Fancy subtitle}
+ \author{Someone Fancy}
+% \authornote{Note}
+% \orcid{1234-5678-9012}
+% \affiliation{%
+%   \institution{Affiliation}
+%   \streetaddress{Address}
+%   \city{City} 
+%   \state{State} 
+%   \postcode{Zipcode}
+% }
+ \email{fancy@superfancyfanciness.com}
+
+
+\begin{abstract}
+    \blindtext
+\end{abstract}
+
+\maketitle
+
+\input{body}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{reference}
+
+\end{document}
