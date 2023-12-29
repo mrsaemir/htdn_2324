@@ -1,0 +1,99 @@
+[Criteria]
+Seminar Report (7 pages + Ref):
+	- 10% Intro
+	- 5% Motivation
+	- 10% Fundamentals & Background
+	- 30% Literature Summary
+	- 30% Discussion Assigned Paper
+	- 10% Discuss Paper's Unique Contribution
+	- 5% Summary, Conclusion and Outlook
+
+
+[Paper32]
+Abstract
+1- Introduction
+2- Background
+	2.1- Traffic Obfuscation Strategies
+	2.2- Active Probing Attacks and Defenses
+3- Methodologies
+4- Characterizing the New Censorship System
+	4.1- Entropy Exemption
+	4.2- ASCII Characters Exemption
+	4.3- Common Protocols Exemption
+	4.4- How the GFW Disrupts Connections
+	4.5- How the GFW Reassembles Flows
+5- Relation with the Active Probing System
+6- Understanding the Blocking Strategies
+	6.1- Internet Scanning Experiment
+	6.2- Not All Subnets/ASes are Affected Equally
+	6.3- Characterizing Probabilistic Blocking
+7- Evaluating the GFW's Detecting Rules
+	7.1- Traffic Analysis Experiment
+	7.2- Experiment Results and Analysis
+8- Circumvention Strategies
+	8.1- Customizable Payload Prefixes
+	8.2- Altering Popcount
+	8.3- Responsible Disclosure
+9- Ethics 
+10- Conclusion
+References
+
+
+[Report]
+Abstract
+1- Introduction
+	- Internet Censorhip and Human Rights
+	- Motivation of censoring countries
+2- Related Work
+3- Background
+	3.1 Evolution of Censorship Techniques
+		- Simplicity, Collateral Damage, Cost and Circumventability
+		- paying extreme prices when needed! Internet shutdown! or DDos Attacks (Great Canyon)
+		- The Use of DPIs
+	3.2 From Centralized to Distributed Censorship 
+		- Pros: Better Performance, Lower Cost, Harder to Circumvent
+		- Cons: Inconsistent Behavior
+	3.3 Stateful Censorship
+		- Techniques to desyncrhronize
+	3.4 Circumvention Technologies
+		- Tor Obfs protocols
+		- Fully Encrypted Protocols
+4- Mechanics of Realtime Censorship in GFW
+	4.1- Mismatching Fingerprints
+		- Heuristics For classifying circumvention traffic
+		- Prefering lower false positive over false negative
+	4.2- Flow Reassembly
+		- A full TCP handshake is necessary
+		- GFW waits up to 5 minutes for first packet
+		- Only the first packet is examined
+	4.3- How the GFW Disrupts a Connection
+		- UDP is not affected
+		- Blocking is port insensitive
+		- Not all ASes are Affected Equally
+			- Internet Scanning Experiment
+	4.4- Residual Censorship
+5- Evading Realtime Censorship
+	5.1- Methodology for Detecting Exemption Rules
+		- crafted payloads for triggering the censor
+		- Use of multiple vatage points
+		- Accounting for probabilistic blocking 
+	5.2- Discovered rules
+		- Entropy Exemption
+		- First six bytes are printable
+		- Half of the first packet are printable
+		- More than 20 contiguous bytes are printable
+		- Common Protocols Exemption: HTTP & TLS
+	5.3- Evaluating discovered rules
+		- Traffic Analysis Experiment
+	5.4- Circumvention Strategies
+		- Customizable Payload Prefixes
+		- Altering Popcount
+6- Combining multiple censoring techniques
+	- Reduce the load on one tool
+	- Have better coverage
+	6.1- The Role of Active Prober
+7- Locating Network Middleboxes
+8- Conclusion
+	- The need for smart strategy selection
+	- Circumvenion should go distributed
+9- Summary
