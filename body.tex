@@ -13,7 +13,7 @@ These methods vary from simple DNS poisoning to advanced technologies like Deep 
 
 Some countries have taken further steps by developing tools to weaponize innocent users, turning them into botnets used for attacking and disrupting popular VPN service providers. China's Great Canyon is a specific example, where malicious JavaScript payloads are sent to users to perform DDoS attacks on targeted websites.\cite{marczak2015great}
 
-\subsection{From Centralized to Distributed Censorship}
+\subsection{From Centralized to Distributed Censorship Control}
 Given the decentralized structure of the Internet, it is impractical to route the entire traffic of a country through a single device or a cluster of censoring devices. Instead, each Internet Service Provider (ISP) is responsible for implementing censorship individually, ideally at the network edge. The management of these middleboxes can be established either centrally, directly by authorities, or individually by each ISP, depending on their respective policies.
 
 In some countries, like Russia, a centralized control model is implemented, where the authority maintains control over a network of numerous Internet Service Providers (ISPs). This centralized approach grants substantial power to the authorities, allowing them to unilaterally impose desired restrictions. In contrast, countries such as Iran follow a distributed model, resulting in potential inconsistencies in censorship behavior among different ISPs, leading to varied experiences for users.\cite{xue2021throttling}
@@ -23,6 +23,9 @@ In India, the authorities shared that while the censorship policies are confiden
 While a centralized approach may offer a faster response and the ability to swiftly implement blocks, distributed control could prove more resilient in combating constantly updated circumvention tools. This is because circumvention tools must take into account the diverse policies and technologies employed by different ISPs in a distributed model.
 
 \subsection{Stateful Censorship}
+To examine the application-layer content with DPI, a censorship system like the GFW needs to keep some state to track each TCP connection. In particular, it maintains a TCP Control Block (TCB) for each live connection to track its state information (e.g., TCP state, sequence number, acknowledgment number, etc.). The goal is to replicate the same connection information at both endpoints. \cite{wang2017state}
+
+While not all censorship techniques necessitate maintaining state, stateful censorship, despite its costliness, offers significant flexibility and advanced analysis capabilities. However, using specially crafted packets makes it possible to desynchronize the state on the DPI and evade the censor without disrupting the client or the server.
 
 \subsection{Circumvention Technologies}
 
