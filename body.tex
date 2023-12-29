@@ -28,6 +28,13 @@ To examine the application-layer content with DPI, a censorship system like the 
 While not all censorship techniques necessitate maintaining state, stateful censorship, despite its costliness, offers significant flexibility and advanced analysis capabilities. However, using specially crafted packets makes it possible to desynchronize the state on the DPI and evade the censor without disrupting the client or the server.
 
 \subsection{Circumvention Technologies}
+In the early phases of internet censorship, blocking mostly took place at the routing layer, utilizing IP blacklists and whitelists to limit access to particular IP addresses/ranges. However, users quickly discovered they could leverage the network as a simple proxy service, leveraging multiple access points to evade basic IP/Port blocking. These techniques involved encapsulating packets within another packet and requesting a proxy server to transmit the inner packet to the intended destination and vice versa.
+
+The advent of Deep Packet Inspection (DPI) systems with content-based filtering capabilities rendered the previous approach ineffective. However, users soon discovered that encrypting packets became a valuable solution as the DPI could no longer comprehend the content within.
+
+Various protocols such as Tor found success at that time. However, Tor’s biggest weakness in this respect is its global public list of relays where a censor can simply download and add each IP address to a blacklist - and censors began to do exactly that. In response to blocking its relays, Tor began to carefully distribute bridges through rate-limited out-of-band channels (such as email or HTTP). This makes it possible for everyone to learn a few bridge addresses while making it hard for anyone to learn them all.
+
+Even using secret bridge relays, Tor remains vulnerable to detection by deep packet inspection (DPI). Tor uses TLS in a fairly distinctive way that causes it to stand out from other TLS-based protocols. After early efforts to make their use of TLS less conspicuous, the developers of Tor settled on a more sustainable strategy: wrapping the entire Tor TLS stream in another layer—a “pluggable transport” and shortly after, transport protocols Obfs2, Obfs3, and Obfs4 were introduced.\cite{ensafi2015firewall}
 
 \section{Mechanics of Real-time Censorship in GFW}
 
