@@ -57,6 +57,13 @@ A potential approach to bypass real-time censorship would involve sending the fi
 The evasion strategy must ensure that there are no conspicuous fingerprints that would indicate the presence of forbidden traffic to the censor.
 
 \subsection{How the GFW Disrupts a Connection}
+Once the GFW detects fully encrypted traffic, it aims to drop client packets accordingly, indicating that only client-to-server packets are affected. At this stage, the client does receive server responses.
+
+Interestingly, this type of censorship specifically impacts TCP connections, as sending the same triggering packet over UDP does not alter its behavior. One possible explanation is that implementing UDP censorship might require additional resources and introduce added complexity.
+
+Furthermore, it's important to note that not all ports are immune to being blocked. Using a sink server that listens on all ports reveals that the censor can be triggered on any destination port.
+
+Moreover, an internet scanning experiment demonstrates that the impact of censorship is not uniform across all subnets/ASes. Even within each AS, different prefixes are treated differently. Notably, the affected or partially affected ASes primarily comprise popular VPS providers that could potentially be used to host proxy servers. Conversely, unaffected ASes typically do not offer VPS hosting services to individual customers.\cite{wu2023great}
 
 \subsection{Residual Censorship}
 
