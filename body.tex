@@ -66,6 +66,16 @@ Furthermore, it's important to note that not all ports are immune to being block
 Moreover, an internet scanning experiment demonstrates that the impact of censorship is not uniform across all subnets/ASes. Even within each AS, different prefixes are treated differently. Notably, the affected or partially affected ASes primarily comprise popular VPS providers that could potentially be used to host proxy servers. Conversely, unaffected ASes typically do not offer VPS hosting services to individual customers.\cite{wu2023great}
 
 \subsection{Residual Censorship}
+After a connection triggers the censorship, the GFW blocks all subsequent connections having the same 3-tuple (client IP, server IP, server port) for 180 seconds.\cite{wu2023great}
+
+During this period of 180 seconds, no additional handshakes to the same 3-tuple will be possible. This can be particularly valuable for confirming whether a specific payload has triggered censorship. Nevertheless, assuming the server is a sink server, other ports on the same server remain accessible for testing with different crafted payloads. 
+
+\subsection{Probabilistic Blocking}
+The GFW employs a probabilistic blocking strategy, where censorship is only triggered approximately a quarter of the time.
+
+This is taken into account when testing if a particular payload triggers the censor by sending the same payload in up to 25 connections before concluding. If after sending the payload at least once, a sequence of 5 subsequent connection attempts timeout (due to residual censorship), the payload (and server) are then labeled as affected by censorship, and the 3-tuple will not be used for 180 seconds. 
+
+Conversely, making 25 consecutive successful connections with the same payload indicates that the censor is not triggered. This method is effective in avoiding false negatives when probabilistic blocking is employed.\cite{wu2023great}
 
 \section{Evading Real-time Censorship}
 
