@@ -80,6 +80,16 @@ Conversely, making 25 consecutive successful connections with the same payload i
 \section{Evading Real-time Censorship}
 
 \subsection{Detecting Exemption Rules}
+To develop effective evading strategies, it is crucial to understand how the Great Firewall defines and identifies allowed traffic. Armed with this knowledge, it is possible to employ a steganographic approach by modifying evasion packets to resemble permitted traffic. This technique involves hiding circumvention traffic within the outward appearance of authorized traffic, making it more challenging for the GFW to detect and block. 
+
+To accomplish this, Wu et al. (2023) employed the following experimental setup to extract the rules utilized by the Great Firewall for exempting authorized traffic:
+
+\textbf{Multiple Vantage Points.} The experiment involved the use of ten VPSes in TencentCloud Beijing and one VPS in AlibabaCloud Beijing. Additionally, four VPSes in DigitalOcean San Francisco were utilized, three of them being affected by new censorship. These VPSes were transformed into sink servers, accepting TCP connections but not sending any data back.
+
+\textbf{Crafted Payloads.} The study employed crafted payloads as part of the research methodology. Alongside using genuine circumvention tools, measurement tools were created to trigger blocking. These tools would initiate a TCP handshake, transmit a random payload of a specified length, and then terminate the connection. The impact of each payload was then further examined by checking for any residual censorship indicators.
+
+\textbf{Accounting for Probabilistic Blocking with Repeated Tests.} Due to the probabilistic blocking strategy employed by the GFW, censorship is triggered only about 25\% of the time. To accommodate this probabilistic behavior, the identical payload is sent in up to 25 connections before drawing any conclusion.
+
 
 \subsection{Discovering Rules}
 
