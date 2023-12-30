@@ -38,7 +38,16 @@ Even using secret bridge relays, Tor remains vulnerable to detection by deep pac
 
 \section{Mechanics of Real-time Censorship in GFW}
 
-\subsection{Mismatching Fingerprints}
+\subsection{Protocol Fingerprinting}
+Every internet protocol has its distinct characteristics that differentiates it from other protocols. This knowledge enables censors to recognize circumvention traffic by detecting these unique fingerprints. Censors develop regular expressions specifically designed to identify indicators of permissible traffic, allowing them to quickly exempt such traffic from censorship and classify it as allowed.
+
+For instance, in 2012, China and Ethiopia deployed deep packet inspection to detect Tor traffic by its uncommon ciphersuits. Censorship middlebox vendors have previously identified and blocked meek traffic based on their TLS fingerprint and SNI values.\cite{wu2023great}
+
+Before the implementation of the new censorship system by the GFW, fully encrypted traffic was generally treated as regular traffic, likely because the GFW was cautious about the potential collateral damage caused by mistakenly blocking legitimate traffic. This conservative approach might have reflected the GFW's uncertainty in having collected fingerprints for all the allowed protocols.
+
+With the implementation of the new censorship system, the effectiveness of fully encrypted tunnels came into question. Even though an encrypted tunnel leaks no information about the payload or its final destination, it still requires effort to perfectly align its fingerprints with popular protocols that form the majority of traffic to avoid blocking.
+
+An important characteristic of fully encrypted traffic that differentiates it from other traffic is its high entropy homogeneously throughout the entire connection, even in the first data packet. Because fully encrypted traffic is supposed to be purely random, it will have close to half of the bits set to 1. This is in contrast to other protocols with fewer than 1 bits per byte due to plaintext or zero-padded protocol headers.\cite{wu2023great}
 
 \subsection{Flow Reassembly}
 
