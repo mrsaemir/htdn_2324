@@ -125,6 +125,15 @@ This observation raises the question of why the censor applies explicit rules to
 To determine the impact this blocking may have on regular traffic, the inferred detection rules are simulated on traffic on the university network without actually blocking any traffic. Different from the GFW, the detection rules are simulated against all TCP connections observed without limiting the detection to 26\% of connections to specific IP ranges of popular data centers. It is expected to see little to no circumvention traffic in this network, and any traffic that would be blocked under detection rules likely represents false positive blocking. The findings indicate that the inferred detection algorithm would block roughly 0.6\% of all connections on the network, suggesting good coverage of what the GFW uses by the inferred rules.
 
 \subsection{Circumvention Strategies}
+In this section, we introduce two widely adopted countermeasures that have been helping users in China bypass censorship since January 2022 and October 2022.
+
+\textbf{Customizable Payload Prefixes.} Exemption rules Ex2 and Ex5 solely examine the initial bytes in a connection, enabling the GFW to efficiently exempt non-fully encrypted traffic. However, this approach presents a potential vulnerability. Nonetheless, a potential evasion tactic involves adding a customizable prefix to the payload of the initial packet in a circumvention connection. An effective illustration of this approach is allocating the first six bytes of the IV header in Shadowsocks protocols as printable ASCII. Implementing these countermeasures necessitates minimal modifications to the client and no adjustments to the server. Nevertheless, it's important to note that this is a temporary solution and the censor could potentially block it with relative ease.
+
+\textbf{Altering Popcount.} The GFW exempts a connection if its first data packet has an average popcount-per-byte ${\leq}$ 3.4 or ${\geq}$ 4.6 (Ex1). Based on this observation, one can increase (or decrease) the popcount ratio by inserting additional ones (or zeroes) into the packet to bypass censorship.
+
+By operating only on the ciphertexts, it does not risk violating confidentiality. When sending a packet, the average popcount-per-byte is computed first, and then the appropriate padding is added along with 4 bytes denoting the number of bits added. This process results in a bit-string B that has a popcount-per-byte that would not subject it to censorship.
+
+Of course, simply appending ones or zeroes would be easy to fingerprint. To address this, bit-level random shuffling is employed. In particular, existing shared secrets, such as a password, are used as a seed to deterministically construct a permutation vector used for shuffling/unshuffling the bit-string. Since it is an obvious fingerprint if all connections share the same popcount-per-byte value, the popcount ratio value is set to a parameterizable range.
 
 \section{Combining Multiple Censoring Techniques}
 
