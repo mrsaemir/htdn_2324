@@ -37,6 +37,7 @@ Various protocols such as Tor found success at that time. However, Tor’s bigge
 Even using secret bridge relays, Tor remains vulnerable to detection by deep packet inspection (DPI). Tor uses TLS in a fairly distinctive way that causes it to stand out from other TLS-based protocols. After early efforts to make their use of TLS less conspicuous, the developers of Tor settled on a more sustainable strategy: wrapping the entire Tor TLS stream in another layer—a “pluggable transport” and shortly after, transport protocols Obfs2, Obfs3, and Obfs4 were introduced.\cite{ensafi2015firewall}
 
 \section{Mechanics of Real-time Censorship in GFW}
+Content of this section is mostly a summary of the work done by Wu et al. (2023) with some minor changes  and possible re-orderings.\cite{wu2023great}
 
 \subsection{Protocol Fingerprinting}
 Every internet protocol has its distinct characteristics that differentiates it from other protocols. This knowledge enables censors to recognize circumvention traffic by detecting these unique fingerprints. Censors develop regular expressions specifically designed to identify indicators of permissible traffic, allowing them to quickly exempt such traffic from censorship and classify it as allowed.
@@ -78,6 +79,7 @@ This is taken into account when testing if a particular payload triggers the cen
 Conversely, making 25 consecutive successful connections with the same payload indicates that the censor is not triggered. This method is effective in avoiding false negatives when probabilistic blocking is employed.\cite{wu2023great}
 
 \section{Evading Real-time Censorship}
+Content of this section is a summary of the work done by Wu et al. (2023) with some minor changes and possible re-orderings.\cite{wu2023great}
 
 \subsection{Detecting Exemption Rules}
 To develop effective evading strategies, it is crucial to understand how the Great Firewall defines and identifies allowed traffic. Armed with this knowledge, it is possible to employ a steganographic approach by modifying evasion packets to resemble permitted traffic. This technique involves hiding circumvention traffic within the outward appearance of authorized traffic, making it more challenging for the GFW to detect and block. 
@@ -94,27 +96,27 @@ To accomplish this, Wu et al. (2023) employed the following experimental setup t
 \subsection{Discovered Rules}
 Wu et al. (2023) discovered that through the repeated sending of various payloads, they were able to deduce certain detection rules employed by the Great Firewall (GFW) to exclude permitted traffic. However, the researchers remain uncertain about the specific sequence in which these rules are applied or whether they are exhaustive. It was observed that rather than directly defining fully encrypted traffic, the censor utilized at least five heuristics to effectively exempt traffic that is unlikely to be fully encrypted. These exemption rules are derived from common protocol fingerprints. In this section, we will closely examine each of these rules to gain a better understanding of how they operate.
 
-\subsubsection{Entropy Exemption (Ex1)}
+\subsubsection{\textbf{Entropy Exemption (Ex1)}}
 During the observation, it was noticed that the likelihood of a connection being blocked is influenced by the fraction of bits set in the transmitted data. To investigate this further, a series of experiments were conducted where multiple connections were sent to the server and the blocked ones were identified. Each connection involved the transmission of one of 256 different byte patterns, with a single byte repeated 100 times (e.g., \textbackslash x00\textbackslash x00\textbackslash x00..., \textbackslash x01\textbackslash x01\textbackslash x01..., ..., \textbackslash xff\textbackslash xff\textbackslash xff...). These patterns were sent in 25 connections, and it was observed whether any of them triggered subsequent blocking.
 
 Out of the 256 patterns, it was found that 40 patterns resulted in blocking, while the remaining 216 patterns did not lead to blocking. The blocked patterns had a common characteristic: the bytes consisted of exactly 4 out of 8 bits set to 1 (e.g., \textbackslash x1b in binary is 00011011). This observation led to the hypothesis that the number of set bits per byte, or the density of 1s, could play a role in triggering blocking. The reasoning was that uniformly random data would have a roughly equal number of 1s and 0s in binary representation, indicating a certain level of entropy within the packet's bits.
 
 Of course, random or encrypted data will not always have exactly half of the bits set to 1. It was tested how close to half the GFW needed in order to block, and it was found that all strings with $\leq$ 3.4 or $\geq$ 4.6 bits/byte set were not blocked, while strings with between 3.4 and 4.6 bits/byte set were blocked.
 
-\subsubsection{First six bytes are printable (Ex2)}
+\subsubsection{\textbf{First six bytes are printable (Ex2)}}
 It is observed that the GFW exempts blocking if the initial six bytes of a connection fall within the printable byte range 0x20–0x7e. If there exist characters outside this range in the first six bytes, a connection may be subject to blocking, unless it possesses other exempting properties (e.g., fewer than 3.4 bits per byte set). To test this, messages were generated with the first n bytes originating from various character sets, such as ASCII printable characters, while the remaining part of the message consisted of random unprintable characters. It was discovered that for n $\textless$ 6, censorship was observed, whereas, for n $\geq$ 6, where the first n bytes are ASCII printable characters, no blocking occurred.
 
-\subsubsection{Half of the first packet are printable (Ex3)}
+\subsubsection{\textbf{Half of the first packet are printable (Ex3)}}
 If over half of the bytes in the initial packet fall within the printable ASCII range of 0x20–0x7e, the GFW exempts the connection. To ensure that the testing probes do not trigger other rules, precautions are taken. The probes are specifically designed to avoid triggering additional GFW exemptions, such as bit counts (Ex1), printable prefixes (Ex2), or runs of printable characters (Ex4). 
 
 There's no wonder that the GFW allows plaintext, as its content can be easily inspected and understood by anyone who intercepts it.
 
-\subsubsection{More than 20 contiguous bytes are printable (Ex4)}
+\subsubsection{\textbf{More than 20 contiguous bytes are printable (Ex4)}}
 A contiguous run of printable characters can also exempt blocking, even if the overall fraction of printable characters is less than half. It was observed that when n is less than or equal to 20, the connection was blocked. However, for n greater than 20, the connection was not blocked, indicating that the presence of a run of printable characters exempts blocking.
 
 The study examined whether Chinese characters in the initial packet received the same blocking exemptions as printable ASCII characters. Both UTF-8 and GBK encoded strings containing Chinese characters were tested, but no exemptions were observed. These results suggest that Chinese characters do not enjoy any special exemptions. One possibility is that Chinese characters are infrequently encountered in these encodings. Additionally, parsing these encodings introduces complexities as it becomes challenging to determine the precise starting and ending points of an encoded string.
 
-\subsubsection{Common Protocols Exemption (Ex5)}
+\subsubsection{\textbf{Common Protocols Exemption (Ex5)}}
 To avoid blocking popular protocols by mistake, the observation is made that the GFW explicitly exempts two widely used protocols. The GFW appears to determine protocols based on the initial 3-6 bytes of the client's packet. If these bytes match those of a known protocol, the connection is exempted from blocking, even if the remaining packets do not adhere to the protocol. It has been found that the TLS and HTTP protocols are specifically exempted.
 
 Testing was conducted on other commonly used protocols. SSH, SMTP, and FTP would also be exempted since they all begin with at least 6 bytes of printable ASCII (referred to as rule Ex2). DNS-over-TCP is exempted due to a significant number of zeros present, which qualifies for exemption under rule Ex1. However, if a substantial amount of random data is appended to a DNS-over-TCP message, it would be subject to blocking.
