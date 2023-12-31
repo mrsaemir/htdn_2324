@@ -122,6 +122,7 @@ Testing was conducted on other commonly used protocols. SSH, SMTP, and FTP would
 This observation raises the question of why the censor applies explicit rules to exempt TLS and HTTP, while other protocols do not receive the same treatment. The censor may employ these simple but efficient rules to quickly exempt the bulk of traffic (TLS and HTTP) from the more in-depth analysis of calculating the popcount, fraction of ASCII, etc.
 
 \subsection{Evaluating Discovered Rules}
+To determine the impact this blocking may have on regular traffic, the inferred detection rules are simulated on traffic on the university network without actually blocking any traffic. Different from the GFW, the detection rules are simulated against all TCP connections observed without limiting the detection to 26\% of connections to specific IP ranges of popular data centers. It is expected to see little to no circumvention traffic in this network, and any traffic that would be blocked under detection rules likely represents false positive blocking. The findings indicate that the inferred detection algorithm would block roughly 0.6\% of all connections on the network, suggesting good coverage of what the GFW uses by the inferred rules.
 
 \subsection{Circumvention Strategies}
 
