@@ -158,6 +158,14 @@ While China is particularly famous for the GFW, it is not the only country turni
 \textbf{Italy.} It is alarming to note that censorship has extended its reach to Europe. Reports suggest that Italy has resorted to utilizing DNS poisoning, leading to the failed resolution of several domains.\cite{aceto2017italy}
 
 \section{Conclusion}
+The ongoing conflict between censors and circumvention tools is indeed an arms race. With each side updating their strategies, the other side swiftly responds with countermeasures. While the circumvention community diligently safeguards the rights of citizens, there is a certain delay in restoring internet access whenever the censor's tactics are updated.
+
+Undoubtedly, the censor operates as a black box, making it challenging to understand its inner workings. Nevertheless, conducting fuzzing tests on the DPI censor often uncovers valuable insights about its behavior. 
+To begin with, it is essential for circumvention tools to store their knowledge of the network's state in a public repository where researchers can analyze the results. This collaborative approach allows for a collective pool of knowledge about what is allowed by the censor.
+
+Subsequently, the gathered results should be analyzed to conclude the types of packets that are permitted to pass through the censor at any given time. While network analysts typically perform this step, it is worth noting that humans are significantly slower than machines when it comes to analyzing the results. Therefore, leveraging machine analysis can greatly expedite the process and enhance the efficiency of drawing insights from the shared data. The utilization of AI technology holds immense potential in extracting patterns utilized for constructing new escape routes from the censor. 
+
+Finally, the client application should be designed to select the most suitable escape strategy based on the specific situation, thereby empowering users with the most effective circumvention strategies.
 
 \section{Summary}
 Censorship techniques are evolving alongside the expansion of the internet, with governments employing complex and expensive methods such as Deep Packet Inspection. DPIs utilize stateful censorship which involves maintaining connection state information. Although expensive, this kind of censorship offers advanced analysis capabilities to achieve better control over internet users which wasn't previously possible using basic techniques such as DNS poisoning or IP blocking. Such DPIs usually distinguish circumvention traffic by identifying unique fingerprints of different internet protocols.
