@@ -29,7 +29,7 @@ While not all censorship techniques necessitate maintaining state, stateful cens
 \subsection{Circumvention Technologies}
 In the early phases of internet censorship, blocking mostly took place at the routing layer, utilizing IP blacklists and whitelists to limit access to particular IP addresses/ranges. However, users quickly discovered they could leverage the network as a simple proxy service, leveraging multiple access points to evade basic IP/Port blocking. These techniques involved encapsulating packets within another packet and requesting a proxy server to transmit the inner packet to the intended destination and vice versa.
 
-The advent of Deep Packet Inspection (DPI) systems with content-based filtering capabilities rendered the previous approach ineffective. However, users soon discovered that encrypting packets became a valuable solution as the DPI could no longer comprehend the content within.
+The advent of Deep Packet Inspection (DPI) systems with content-based filtering capabilities rendered the previous approach ineffective. However, users soon discovered that encrypting packets became a valuable solution as the DPI could no longer comprehend the content within.\cite{leberknight2010taxonomy}
 
 Various protocols such as Tor found success at that time. However, Tor’s biggest weakness in this respect is its global public list of relays where a censor can simply download and add each IP address to a blacklist - and censors began to do exactly that. In response to blocking its relays, Tor began to carefully distribute bridges through rate-limited out-of-band channels (such as email or HTTP). This makes it possible for everyone to learn a few bridge addresses while making it hard for anyone to learn them all.
 
