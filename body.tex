@@ -1,9 +1,14 @@
 \section{Introduction}
 Censorship techniques are evolving alongside the expansion of the internet, with governments employing complex and expensive methods such as Deep Packet Inspection. DPIs utilize stateful censorship which involves maintaining connection state information. Although expensive, this kind of censorship offers advanced analysis capabilities to achieve better control over internet users which wasn't previously possible using basic techniques such as DNS poisoning or IP blocking. Such DPIs usually distinguish circumvention traffic by identifying unique fingerprints of different internet protocols.
 
-In response to the evolving censorship techniques, circumvention tools have equally evolved and are prepared to combat censorship. One effective strategy they employ is to camouflage themselves within the vast sea of legitimate HTTPS traffic.
+In response to the evolving censorship techniques, circumvention tools have equally evolved and are prepared to combat censorship. One effective strategy they employ is to camouflage themselves within the vast sea of legitimate HTTPS traffic. Such techniques often rely on mimicking an allowed protocol (e.g. Skype) as a means to become unobservable and remain unnoticed by the censor.
 
 \section{Related Work}
+While most of the current circumvention protocols rely on mimicking to remain unnoticed by the censor, some authors believe that the entire approach of “unobservability by imitation” is fundamentally flawed and argue that mimicking a sophisticated distributed system like Skype, with multiple, inter-dependent sub-protocols and correlations, is an impossible challenge. Hence, a parrot circumvention protocol may not fully align its protocol with the actual protocol, leading to being easily detectable by censors. They believe that one promising alternative is to not mimic, but run the actual protocol instead.\cite{houmansadr2013parrot}
+
+Other solutions proposed by researchers suggest moving the proxying logic from the edge (the proxy server) to the core of the network outside the censored regime. Such solutions are usually deployed by friend ISPs and help to obfuscate the origin/destination of packets, usually referred to as Decoy Routing. An example of such implementation is the Cirripede Circumvention Infrastructure.[cite] While decoy routing is a novel idea, its effectiveness against DPIs with content analysis capabilities is under question.\cite{karlin2011decoy}\cite{houmansadr2011cirripede}
+
+Finally, a promising work done by Wang et al. is to interfere with the state management of the censor by exploiting the fact that any Network Intrusion Detection System (NIDS) is inherently incapable of always reconstructing a TCP stream the same way as its endpoints, and have shown that a sender can send carefully crafted packets to desynchronize the TCP Control Block (TCB) maintained by the NIDS tricking it into forgetting about monitoring a specific live connection. Since the GFW is inherently a NIDS, the client could easily evade the real-time censor by employing this method.\cite{wang2017state}
 
 \section{Background}
 \subsection{Evolution of Censorship Techniques}
