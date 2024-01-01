@@ -93,8 +93,9 @@ Abstract
 	- Reduce the load on one tool
 	- Have better coverage
 	6.1- The Role of Active Prober
-7- Locating Network Middleboxes
-8- Conclusion
+7- Other examples
+8- Locating Network Middleboxes
+9- Conclusion
 	- The need for smart strategy selection
 	- Circumvenion should go distributed
-9- Summary
+10- Summary

@@ -146,6 +146,17 @@ One such tool is China's active prober, which runs in parallel with the GFW. The
 To defend against the prober's activities, it is helpful to identify and avoid the factors that trigger its actions during passive monitoring. Furthermore, analyzing server logs can provide valuable insights into understanding what has attracted the prober as well. The prober actively probes for various protocols, including TLS, Tor Obfs2, Tor Obfs3, SoftEther, etc. Requiring clients to prove knowledge of a shared secret before responding could be another defense against the active prober.\cite{ensafi2015firewall}
 
 Wu et al. (2023) found that the active probing system also relies on the traffic exemption rules introduced in section 5 but has additional packet length-based rules applied. They also showed evidence that the traffic analysis algorithm used by the active probing system may have evolved since 2019.\cite{wu2023great}
+ 
+\section{Other Examples}
+While China is particularly famous for the GFW, it is not the only country turning up the heat. There are many more countries following China's footsteps using various censoring methods. In this section, we examine a non-exhaustive list of censoring countries studied by this article.
+
+\textbf{Russia.} Apart from blocking websites, Russia is known to be the first government to apply bandwidth throttling on a national level for censorship. The slowdown was intended to pressure Twitter to comply with content removal requests from the Russian government. Throttling in Russia is achieved by exploiting the exposed domain name within the ClientHello message of the TLS protocol. Finally, under pressure, Twitter fulfilled the majority of content takedown requests to comply with the Russian government’s order without providing any transparency to its users.\cite{xue2021throttling}
+
+\textbf{Iran.} Iran has a long history of blocking, throttling, and shutting down the Internet. Apart from common censoring techniques such as DNS poisoning, IP blocking, and keyword filtering, Iran also utilizes DPIs to have finer control over the use of privacy tools.\cite{aryan2013iran}
+
+\textbf{India.} Although censorship practices vary among different ISPs in India, there has been a gradual and somewhat covert development of an infrastructure for widespread Internet censorship. This infrastructure involves both privately and federally operated ISPs. Researchers who have sought further information from authorities have received nothing but vague and ambiguous responses.\cite{yadav2018light}
+
+\textbf{Italy.} It is alarming to note that censorship has extended its reach to Europe. Reports suggest that Italy has resorted to utilizing DNS poisoning, leading to the failed resolution of several domains.\cite{aceto2017italy}
 
 \section{Locating Network Middleboxes}
 
