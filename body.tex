@@ -11,6 +11,15 @@ Other solutions proposed by researchers suggest moving the proxying logic from t
 Finally, a promising work done by Wang et al. is to interfere with the state management of the censor by exploiting the fact that any Network Intrusion Detection System (NIDS) is inherently incapable of always reconstructing a TCP stream the same way as its endpoints, and have shown that a sender can send carefully crafted packets to desynchronize the TCP Control Block (TCB) maintained by the NIDS tricking it into forgetting about monitoring a specific live connection. Since the GFW is inherently a NIDS, the client could easily evade the real-time censor by employing this method.\cite{wang2017state}
 
 \section{Background}
+\begin{figure}[tp]
+	\centering
+	\includegraphics{figures/WorldCensorship}
+	\caption{
+		Which countries are the most censored in the world?
+		\cite{comparitech2023}
+	}
+\end{figure}
+
 \subsection{Evolution of Censorship Techniques}
 In parallel with the continuous expansion of internet users, diverse web services and social media apps that have become integral to modern life, censorship techniques are also actively evolving by world governments. 
 
@@ -153,7 +162,15 @@ One such tool is China's active prober, which runs in parallel with the GFW. The
 To defend against the prober's activities, it is helpful to identify and avoid the factors that trigger its actions during passive monitoring. Furthermore, analyzing server logs can provide valuable insights into understanding what has attracted the prober as well. The prober actively probes for various protocols, including TLS, Tor Obfs2, Tor Obfs3, SoftEther, etc. Requiring clients to prove knowledge of a shared secret before responding could be another defense against the active prober.\cite{ensafi2015firewall}
 
 Wu et al. (2023) found that the active probing system also relies on the traffic exemption rules introduced in section 5 but has additional packet length-based rules applied. They also showed evidence that the traffic analysis algorithm used by the active probing system may have evolved since 2019.\cite{wu2023great}
- 
+
+\begin{figure}[tp]
+	\centering
+	\includegraphics{figures/ActiveProber}
+	\caption{
+		The firewall cannot determine, by mere inspection, whether the encrypted connection carries a prohibited circumvention protocol. Therefore it issues its own probes and observes how the server responds.\cite{ensafi2015firewall}
+		}
+\end{figure}
+
 \section{Other Examples}
 While China is particularly famous for the GFW, it is not the only country turning up the heat. There are many more countries following China's footsteps using various censoring methods. In this section, we examine a non-exhaustive list of censoring countries studied by this article.
 
